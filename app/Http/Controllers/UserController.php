@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,63 +14,66 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-  public function index()
-  {
-    return User::paginate();
-  }
+    public function index()
+    {
+        $users = User::paginate();
 
-  public function show($id)
-  {
-    return User::find($id);
-  }
+        return UserResource::collection($users);
+    }
 
-  public function store(UserCreateRequest $request)
-  {
-    $user = User::create($request->only('first_name', 'last_name', 'email') + [
-      'password' => Hash::make('password'),
-    ]);
+    public function show($id)
+    {
+        $user = User::find($id);
+        return new UserResource($user);
+    }
 
-    return response($user, Response::HTTP_CREATED);
-  }
+    public function store(UserCreateRequest $request)
+    {
+        $user = User::create($request->only('first_name', 'last_name', 'email', 'role_id') +
+            [ 'password' => Hash::make('password'),
+            ]);
 
-  public function update(UserUpdateRequest $request, $id)
-  {
-    $user = User::find($id);
+        return response(new UserResource($user), Response::HTTP_CREATED);
+    }
 
-    $user->update($request->only('first_name', 'last_name', 'email'));
+    public function update(UserUpdateRequest $request, $id)
+    {
+        $user = User::find($id);
 
-    return response($user, Response::HTTP_ACCEPTED);
-  }
+        $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
 
-  public function destroy($id)
-  {
-    User::destroy($id);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
+    }
 
-    return response(null, Response::HTTP_NO_CONTENT);
-  }
+    public function destroy($id)
+    {
+        User::destroy($id);
 
-  public function user()
-  {
-    return Auth::user();
-  }
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
 
-  public function updateInfo(UpdateInfoRequest $request)
-  {
-    $user = Auth::user();
+    public function user()
+    {
+        return new UserResource(\Auth::user());
+    }
 
-    $user->update($request->only('first_name', 'last_name', 'email'));
+    public function updateInfo(UpdateInfoRequest $request)
+    {
+        $user = \Auth::user();
 
-    return response($user, Response::HTTP_ACCEPTED);
-  }
+        $user->update($request->only('first_name', 'last_name', 'email'));
 
-  public function updatePassword(UpdatePasswordRequest $request)
-  {
-    $user = Auth::user();
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
+    }
 
-    $user->update([
-      'password' => Hash::make($request->input('password'))
-    ]);
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = \Auth::user();
 
-    return response($user, Response::HTTP_ACCEPTED);
-  }
+        $user->update([
+            'password' => Hash::make($request->input('password'))
+        ]);
+
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
+    }
 }

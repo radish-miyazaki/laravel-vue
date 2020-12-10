@@ -11,30 +11,30 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-  public function login(Request $request)
-  {
-    if(Auth::attempt($request->only('email', 'password')))
+    public function login(Request $request)
     {
-      $user = Auth::user();
+        if(Auth::attempt($request->only('email', 'password')))
+        {
+            $user = Auth::user();
 
-      $token = $user->createToken('admin')->accessToken;
+            $token = $user->createToken('admin')->accessToken;
 
-      return [
-        'token' => $token,
-      ];
+            return [
+                'token' => $token,
+            ];
+        }
+
+        return response([
+            'error' => 'Invalid Credentials!'
+        ], Response::HTTP_UNAUTHORIZED);
     }
 
-    return response([
-      'error' => 'Invalid Credentials!'
-    ], Response::HTTP_UNAUTHORIZED);
-  }
+    public function register(RegisterRequest $request)
+    {
+        $user = User::create($request->only('first_name', 'last_name', 'email') + [
+                'password' => Hash::make($request->input('password')),
+            ]);
 
-  public function register(RegisterRequest $request)
-  {
-    $user = User::create($request->only('first_name', 'last_name', 'email') + [
-      'password' => Hash::make($request->input('password')),
-    ]);
-
-    return response($user, Response::HTTP_CREATED);
-  }
+        return response($user, Response::HTTP_CREATED);
+    }
 }
