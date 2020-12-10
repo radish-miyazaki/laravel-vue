@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => 'auth:api'], function() {
-  Route::get('user', [UserController::class, 'user']);
-  Route::put('users/info', [UserController::class, 'updateInfo']);
-  Route::put('users/password', [UserController::class, 'updatePassword']);
-  Route::apiResource('users', UserController::class);
-  Route::apiResource('roles', RoleController::class);
+    Route::get('user', [UserController::class, 'user']);
+    Route::put('users/info', [UserController::class, 'updateInfo']);
+    Route::put('users/password', [UserController::class, 'updatePassword']);
+    Route::post('upload', [ImageController::class, 'upload']);
+
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('products', ProductController::class);
 });
 
 Route::post('login', [AuthController::class, 'login']);
