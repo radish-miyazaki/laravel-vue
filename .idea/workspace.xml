@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f8d85929-8515-4bc8-bcde-482308f9dd4b" name="デフォルト変更リスト" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/OrderItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/OrderItemResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/OrderResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/OrderResource.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/OrderItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/OrderItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +190,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607588680736</updated>
       <workItem from="1607588685559" duration="2675000" />
-      <workItem from="1607592147492" duration="7580000" />
+      <workItem from="1607592147492" duration="8388000" />
     </task>
     <servers />
   </component>
