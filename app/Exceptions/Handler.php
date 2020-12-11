@@ -36,5 +36,12 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        // 403エラーをAPIメッセージにする
+//        $this->renderable(function ($request, Throwable $e) {
+//            return response([
+//                'error' => $e->getMessage()
+//            ], $e->getCode() ? $e->getCode() : 400);
+//        });
     }
 }
