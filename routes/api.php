@@ -23,7 +23,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group([
+    'middleware' => 'auth:api',
+    'prefix' => 'admin',
+], function() {
     Route::get('chart', [DashboardController::class, 'chart']);
     Route::get('user', [UserController::class, 'user']);
     Route::put('users/info', [UserController::class, 'updateInfo']);
