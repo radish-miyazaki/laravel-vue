@@ -14,7 +14,7 @@ class InfluencerProductController
         // to use Redis(get & set value)
         $products =  \Cache::remember('products', 5, function () use ($request) {
             sleep(2);
-            
+
             return Product::all();
         });
 
