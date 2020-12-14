@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ProductUpdatedEvent;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -32,6 +33,8 @@ class ProductController
 
         $product = Product::create($request->only('title', 'description', 'price', 'image'));
 
+        event(new ProductUpdatedEvent());
+
         return response($product, Response::HTTP_CREATED);
     }
 
@@ -42,6 +45,8 @@ class ProductController
         $product = Product::find($id);
 
         $product->update($request->only('title', 'description', 'price', 'image'));
+
+        event(new ProductUpdatedEvent());
 
         return response($product, Response::HTTP_ACCEPTED);
     }
