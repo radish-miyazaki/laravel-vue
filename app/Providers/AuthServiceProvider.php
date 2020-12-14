@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Passport::tokensCan([
+            'admin' => 'Admin access',
+            'influencer' => 'Influencer access'
+        ]);
 
         Gate::define('view', function(User $user, $model) {
             return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");

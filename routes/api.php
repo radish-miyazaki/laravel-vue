@@ -38,9 +38,9 @@ Route::group([
 
 // ADMIN
 Route::group([
-    'middleware' => 'auth:api',
+    'middleware' => ['auth:api', 'scope:admin'],
     'prefix' => 'admin',
-    'namespace' => 'Admin',
+//    'namespace' => 'Admin',
 ], function() {
     Route::get('chart', [DashboardController::class, 'chart']);
 
@@ -60,5 +60,11 @@ Route::group([
     'namespace' => 'Influencer',
 ], function() {
     Route::get('products', [InfluencerProductController::class, 'index']);
+
+    Route::group([
+        'middleware' => ['auth:api', 'scope:influencer'],
+    ], function () {
+
+    });
 });
 
