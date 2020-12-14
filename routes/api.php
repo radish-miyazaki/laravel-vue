@@ -67,6 +67,7 @@ Route::group([
     ], function () {
         Route::post('links', [LinkController::class, 'store']);
         Route::get('stats', [\App\Http\Controllers\Influencer\StatsController::class, 'index']);
+        Route::get('rankings', [\App\Http\Controllers\Influencer\StatsController::class, 'rankings']);
     });
 });
 
