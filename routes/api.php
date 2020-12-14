@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Influencer\InfluencerProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('register', [AuthController::class, 'register']);
 
 Route::group([
     'middleware' => 'auth:api',
@@ -42,7 +45,10 @@ Route::group([
     Route::apiResource('permissions', PermissionController::class)->only('index');
 });
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout']);
-Route::post('register', [AuthController::class, 'register']);
+Route::group([
+    'prefix' => 'influencer',
+    'namespace' => 'Influencer',
+], function() {
+    Route::get('products', [InfluencerProductController::class, 'index']);
+});
 
