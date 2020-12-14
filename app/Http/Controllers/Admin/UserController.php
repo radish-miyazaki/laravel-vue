@@ -62,37 +62,4 @@ class UserController
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
-
-    // User Personal Information ////////////////////////////
-    // So, don't need Gate(authority) ///////////////////////
-    public function user()
-    {
-        $user = \Auth::user();
-
-        return (new UserResource($user))->additional([
-            'data' => [
-                'permissions' => $user->permissions()
-            ]
-        ]);
-    }
-
-    public function updateInfo(UpdateInfoRequest $request)
-    {
-        $user = \Auth::user();
-
-        $user->update($request->only('first_name', 'last_name', 'email'));
-
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
-
-    public function updatePassword(UpdatePasswordRequest $request)
-    {
-        $user = \Auth::user();
-
-        $user->update([
-            'password' => Hash::make($request->input('password'))
-        ]);
-
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
 }

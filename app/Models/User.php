@@ -38,6 +38,8 @@ use Laravel\Passport\HasApiTokens;
  * @property int $role_id
  * @property-read \App\Models\Role $role
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
+ * @property int $is_influencer
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsInfluencer($value)
  */
 class User extends Authenticatable
 {
@@ -62,5 +64,15 @@ class User extends Authenticatable
     public function hasAccess($access)
     {
         return $this->permissions()->contains($access);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_influencer === 0;
+    }
+
+    public function isInfluencer(): bool
+    {
+        return $this->is_influencer === 1;
     }
 }
