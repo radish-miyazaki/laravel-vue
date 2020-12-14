@@ -66,6 +66,7 @@ Route::group([
         'middleware' => ['auth:api', 'scope:influencer'],
     ], function () {
         Route::post('links', [LinkController::class, 'store']);
+        Route::get('stats', [\App\Http\Controllers\Influencer\StatsController::class, 'index']);
     });
 });
 
