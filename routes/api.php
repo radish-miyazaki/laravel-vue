@@ -76,4 +76,5 @@ Route::group([
 ], function() {
     Route::get('links/{code}', [LinkController::class, 'show']);
     Route::post('orders', [\App\Http\Controllers\Checkout\OrderController::class, 'store']);
+    Route::post('orders/confirm', [\App\Http\Controllers\Checkout\OrderController::class, 'confirm']);
 });
