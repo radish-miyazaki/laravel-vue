@@ -12,5 +12,5 @@ use Illuminate\Queue\SerializesModels;
 
 class ProductUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;å
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 }
