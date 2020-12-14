@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Influencer\LinkController;
 use App\Http\Controllers\Influencer\InfluencerProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,14 +58,22 @@ Route::group([
 // INFLUENCER
 Route::group([
     'prefix' => 'influencer',
-    'namespace' => 'Influencer',
+//    'namespace' => 'Influencer',
 ], function() {
     Route::get('products', [InfluencerProductController::class, 'index']);
 
     Route::group([
         'middleware' => ['auth:api', 'scope:influencer'],
     ], function () {
-
+        Route::post('links', [LinkController::class, 'store']);
     });
 });
 
+// CHECKOUT
+Route::group([
+    'prefix' => 'checkout',
+//    'namespace' => 'Checkout',
+], function() {
+    Route::get('links/{code}', [LinkController::class, 'show']);
+    Route::post('orders', [\App\Http\Controllers\Checkout\OrderController::class, 'store']);
+});
