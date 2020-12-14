@@ -62,6 +62,7 @@ class Order extends Model
 
     public function getAdminTotalAttribute()
     {
+        usleep(30000); // 30ms
         return $this->orderItems->sum(function(OrderItem $item) {
             return $item->admin_revenue;
         });
